@@ -18,7 +18,7 @@ using deep learning to predict price changes in Forex. This is because, deep lea
 
 # Sources of Data
 
-There are various sources where you can obtain Forex data, both free and paid. Some of the popular sources are:
+There are various sources where you can obtain Forex data, both free and paid. This is the dataset i will be using. <a href="https://github.com/Code-with-jaycee/Forex-Machine-learning-model/blob/main/DAT_XLSX_EURUSD_M1_202301.xlsx">Forex data</a>. Some of the popular sources are : 
 
 1. <b>Forex Data Providers:</b> There are many data providers that offer Forex historical and real-time data, including Oanda, Alpha Vantage, and Quandl. These providers offer APIs that you can use to fetch the data programmatically.
 
@@ -34,13 +34,13 @@ When collecting Forex data, it is essential to ensure that the data is accurate,
 
 # Here are some platforms where you can download Forex data for free:
 
-1. <b>HistData:</b> HistData provides free historical Forex data for different currency pairs and timeframes. You can download the data in CSV format, and it includes features such as open, high, low, and close prices, as well as volume data.
+1. <b>HistData:</b> <a href="https://www.histdata.com/download-free-forex-data/">HistData</a> provides free historical Forex data for different currency pairs and timeframes. You can download the data in CSV format, and it includes features such as open, high, low, and close prices, as well as volume data.
 
-2. <b>Forexite:</b> Forexite offers free Forex historical data for various currency pairs and timeframes. The data is available in CSV format, and it includes bid and ask prices, as well as other features such as the opening and closing times for each trading session.
+2. <b><a href="https://www.forexite.com/traderoom/">Forexite:</a></b> Forexite offers free Forex historical data for various currency pairs and timeframes. The data is available in CSV format, and it includes bid and ask prices, as well as other features such as the opening and closing times for each trading session.
 
-3. <b>Investing.com:</b> Investing.com provides free Forex historical data for various currency pairs and timeframes. The data is available in CSV format, and it includes features such as open, high, low, and close prices, as well as volume data.
+3. <b><a href="https://www.investing.com/">Investing.com:</a></b> Investing.com provides free Forex historical data for various currency pairs and timeframes. The data is available in CSV format, and it includes features such as open, high, low, and close prices, as well as volume data.
 
-4. <b>Kaggle:</b> Kaggle hosts many publicly available datasets, including Forex data. You can search for Forex data on Kaggle and download the datasets in various formats.
+4. <b><a href="https://www.kaggle.com/datasets">Kaggle:</a></b> Kaggle hosts many publicly available datasets, including Forex data. You can search for Forex data on Kaggle and download the datasets in various formats.
 
 Before downloading and using the data, make sure to read the license and terms of use of the data source to ensure that you can use it for your project. Additionally, as I mentioned earlier, make sure to clean, preprocess, and transform the data to make it suitable for deep learning.
 
@@ -59,8 +59,19 @@ Before downloading and using the data, make sure to read the license and terms o
 
 These are some general steps you can follow to prepare the data for deep learning. However, the specific steps you need to take will depend on the requirements of your project and the deep learning architecture you choose.
 
+# Step 1: Cleaning data
 
-# Adding columns
+<h3>Imports</h3>
+
+```
+import numpy as np
+import pandas as pd
+```
+
+```
+ata = pd.read_excel("/Forex machine learning project/DAT_XLSX_EURUSD_M1_202301.xlsx")
+```
+<h3> Adding columns</h3>
 it's a good practice to assign column headings to the data. Column headings will make it easier for you and others to understand and work with the data, and it will help you to avoid errors when cleaning and preprocessing the data.
 
 To assign column headings to the data, you will need to know what each column represents. Forex data usually contains the following columns:
@@ -79,7 +90,17 @@ To assign column headings to the data, you will need to know what each column re
 
 You can assign these column headings to your data by creating a new row at the top of the data and filling in the column headings. For example, you can use the following column headings:
 
-Date, Open, High, Low, Close, Volume
+```
+data.columns = ['Date', 'Open', 'High', 'Low','Close', 'Volume']
+
+# Save the updated Dataframe to a new CSV file
+data.to_csv('forex_data.csv', index=False)
+```
+
+Lets load our updated dataset.
+```
+data = pd.read_csv("forex_data.csv")
+```
 
 Make sure to assign the correct column headings to each column to ensure that the data is correctly interpreted and used in your deep learning model.
 
