@@ -194,6 +194,9 @@ with h5py.File('data.h5', 'w') as f:
     f.create_dataset('test_y', data=test_y)
 ```
 
+This will create an HDF5 file named ```data.h5``` in write mode (```'w'```). It will then create six datasets within the file and save the corresponding arrays to them. You can then load the data from the HDF5 file using the ```h5py``` library. Here is an example of how to load the data:
+
+
 # Load the data from the HDF5 file
 
 ```
