@@ -69,7 +69,7 @@ import pandas as pd
 ```
 
 ```
-ata = pd.read_excel("/Forex machine learning project/DAT_XLSX_EURUSD_M1_202301.xlsx")
+data = pd.read_excel("forex_data.xlsx")
 ```
 <h3> Adding columns</h3>
 it's a good practice to assign column headings to the data. Column headings will make it easier for you and others to understand and work with the data, and it will help you to avoid errors when cleaning and preprocessing the data.
