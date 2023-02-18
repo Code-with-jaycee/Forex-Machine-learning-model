@@ -105,4 +105,40 @@ data = pd.read_csv("forex_data.csv")
 Make sure to assign the correct column headings to each column to ensure that the data is correctly interpreted and used in your deep learning model.
 
 
+# Checking For missing values
+Check if there are any missing values in the data and decide how to handle them. You can either remove the rows with missing values or impute the missing values with appropriate techniques such as mean or median imputation.<br>
+In our case we will use the mean
 
+```
+if data.isnull().values.any():
+    data = data.fillna(data.mean())
+```
+
+# Checking for Duplicates.
+Check if there are any duplicate rows in the data and remove them if necessary.
+
+```
+if data.duplicated().values.any():
+    data= data.drop_duplicates()
+```
+<hr>
+
+# Remove outliers from the 'Close' column using z-score
+Next, we remove outliers from the 'Close' column using z-score, where any data point that lies outside 3 standard deviations from the mean is considered an outlier and removed.
+
+```
+data = data[(data['Close'] - data['Close'].mean())/ data['Close'].std() < 3]
+```
+
+# Normalize the data usng StandardScaler
+Finally, we normalize the data using StandardScaler by first initializing a StandardScaler object, and then applying it to the relevant columns using the fit_transform() method.
+
+```
+scaler = StandardScaler()
+data[['Open', 'High', 'Low', 'Close', 'Volume']] = scaler.fit_transform(data[['Open', 'High', 'Low', 'Close', 'Volume']])
+```
+
+```
+# Save the Cleaned DataFrame to a new CSV file
+data.to_csv('Cleaned_forex_data.csv', index=False)
+```
