@@ -130,7 +130,7 @@ Next, we remove outliers from the 'Close' column using z-score, where any data p
 data = data[(data['Close'] - data['Close'].mean())/ data['Close'].std() < 3]
 ```
 
-# Normalize the data usng StandardScaler
+# Step 2: Normalize the data usng StandardScaler
 Finally, we normalize the data using StandardScaler by first initializing a StandardScaler object, and then applying it to the relevant columns using the fit_transform() method.
 
 ```
@@ -141,4 +141,68 @@ data[['Open', 'High', 'Low', 'Close', 'Volume']] = scaler.fit_transform(data[['O
 ```
 # Save the Cleaned DataFrame to a new CSV file
 data.to_csv('Cleaned_forex_data.csv', index=False)
+```
+
+
+ # Step 3: Reshaping the dataset
+In the case of time series data like Forex, the shape of the input data is very important. The input data should be a 3D array of shape (num_samples, sequence_length, num_features), where:
+
+```num_samples``` is the number of samples in the dataset.
+```sequence_length``` is the length of the input sequence that the model will process at once.
+```num_features``` is the number of features in the input data.
+This 3D array can be interpreted as a sequence of ```num_samples``` input sequences, each of length ```sequence_length``` and with ```num_features``` features.
+
+
+```
+# Read the cleaned data CSV file into pandas DataFrame
+data = pd.read_csv("Cleaned_forex_data.csv")
+
+
+# Define the sequence length
+sequence_length = 50
+```
+
+```
+# Create a function to reshape the data
+def create_sequences(data, sequence_length):
+    X = []
+    y = []
+    for i in range(len(data)-sequence_length-1):
+        X.append(data.iloc[i:(i+sequence_length), 1:6])
+        y.append(data.iloc[(i+sequence_length), 4])
+    return np.array(X), np.array(y)
+
+# Reshape the data
+X, y = create_sequences(data, sequence_length)
+```
+
+# Step 4. Spliting the data into training, validation and test sets
+
+```
+# Split the data into training , validation and test sets
+train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=0.2, shuffle=False)
+train_X, val_X, train_y, val_y = train_test_split(train_X, train_y, test_size=0.25, shuffle=False)
+
+
+# Save the split data to an HDF5 file
+with h5py.File('data.h5', 'w') as f:
+    f.create_dataset('train_X', data=train_X)
+    f.create_dataset('train_y', data=train_y)
+    f.create_dataset('val_X', data=val_X)
+    f.create_dataset('val_y', data=val_y)
+    f.create_dataset('test_X', data=test_X)
+    f.create_dataset('test_y', data=test_y)
+```
+
+# Load the data from the HDF5 file
+
+```
+
+with h5py.File('data.h5', 'r') as f:
+    train_X = f['train_X'][:]
+    train_y = f['train_y'][:]
+    val_X = f['val_X'][:]
+    val_y = f['val_y'][:]
+    test_X = f['test_X'][:]
+    test_y = f['test_y'][:]
 ```
