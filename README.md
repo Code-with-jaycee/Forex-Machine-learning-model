@@ -1,6 +1,7 @@
 # Forex-Machine-learning-model
 using deep learning to predict price changes in Forex. This is because, deep learning has shown promising results in predicting financial time series data, including Forex.
 
+![image](https://github.com/Code-with-jaycee/Forex-Machine-learning-model/assets/87891857/a9f4d8e8-5f8c-41d2-b8c8-6cb5dc4d705f)
 
 
 <b>Here are the general steps you can follow to develop a deep learning model for predicting Forex prices and make it available to users through a frontend platform:</b>
